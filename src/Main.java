@@ -12,11 +12,21 @@ public class Main {
         people.add(new Person("Анатолий", "Печкин", 76));
         people.add(new Person("Анна", "Смирнова-Козицына", 21));
         people.add(new Person("Евгений", "Мирнов", 120));
-        Comparator persons = new PersonComparator();
-        Collections.sort(people, persons);
+        Collections.sort(people, (o1, o2) ->
+        {
+            int length1 = o1.getSurname().split("-").length;
+            int length2 = o2.getSurname().split("-").length;
+            if (length1 < length2) {
+                return -1;
+            }
+
+            if (length1 > length2) {
+                return 1;
+            }
+            return o1.getAge() - o2.getAge();
+        });
         for (Person p : people) {
             System.out.println(p.toString());
         }
-
-
-    }}
+    }
+}
